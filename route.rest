@@ -1,0 +1,8 @@
+GET http://localhost:3000/boxnovel
+
+### 
+GET http://localhost:3000/boxnovel/search?search=demons
+
+###
+
+GET http://localhost:3000/boxnovel/novels?title=worlds-greatest-militia
