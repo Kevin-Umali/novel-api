@@ -4,10 +4,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const link = 'https://boxnovel.com/novel/';
-
 router.get('/', async (req, res) => {
     try {
+        const link = `https://boxnovel.com/novel/page/${req.query.page}`;
         let novelArray = {
             status: "Sucess",
             statusCode: "200",

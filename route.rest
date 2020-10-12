@@ -1,4 +1,4 @@
-GET http://localhost:3000/boxnovel
+GET http://localhost:3000/boxnovel?page=1
 
 ### 
 GET http://localhost:3000/boxnovel/search?search=demons
