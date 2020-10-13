@@ -9,7 +9,7 @@ Request for more website.
 | Site                            | Can Search | Status |
 | --------------------------------| :--------: | :----: |
 | http://boxnovel.com             |     ✔     |    ✔   |
-| http://wuxiaworld.org             |          |    ⌛   |
+| https://wuxiaworld.site/            |          |    ⌛   |
 
 # Documentation
 - **GET: /boxnovel?page=[page]**
