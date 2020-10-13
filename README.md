@@ -23,7 +23,7 @@ Request for more website.
   "data": [
     {
       "title": "My Senior Brother is Too Steady",
-      "link": "https://boxnovel.com/novel/my-senior-brother-is-too-steady/",
+      "link": "https://kooma-api.herokuapp.com/boxnovel/novels/my-senior-brother-is-too-steady/",
       "rating": "4.2",
       "newChapter": "Chapter 194",
       "updateOn": "1 min ago"
@@ -45,7 +45,7 @@ Request for more website.
     {
       "title": "The Indomitable Master of Elixirs-Webnovel",
       "img": "https://boxnovel.com/wp-content/uploads/2019/07/The-Indomitable-Master-of-Elixirs-193x278.jpg",
-      "link": "https://boxnovel.com/novel/the-indomitable-master-of-elixirs-webnovel/",
+      "link": "https://kooma-api.herokuapp.com/boxnovel/novel/the-indomitable-master-of-elixirs-webnovel/",
       "rating": "4.2",
       "newChapter": "Chapter 1122",
       "updateOn": "2020-10-13 14:35:46"
@@ -73,7 +73,7 @@ Request for more website.
   "chapter": [
     {
       "title": "Chapter 44 - 44. Use It",
-      "link": "https://boxnovel.com/novel/worlds-greatest-militia/chapter-44",
+      "link": "https://kooma-api.herokuapp.com/boxnovel/novels/worlds-greatest-militia/chapter-44",
       "rating": "January 29, 2020"
     },
     {

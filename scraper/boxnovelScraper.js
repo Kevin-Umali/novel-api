@@ -231,7 +231,7 @@ async function ScrapeNovelDetails(title, callback) {
 
                 const chapterlink = $(el)
                     .find('a')
-                    .attr('href');
+                    .attr('href').replace('https://boxnovel.com/novel/', '');
 
                 const realeasedate = $(el)
                     .find('.chapter-release-date')
@@ -239,7 +239,7 @@ async function ScrapeNovelDetails(title, callback) {
                     .replace(/\s\s+/g, '');
                 novelArray.chapter.push({
                     "title": chaptername,
-                    "link": `https://kooma-api.herokuapp.com/boxnovel/novels/${chapterlink.replace('https://boxnovel.com/novel/', '')}`,
+                    "link": `https://kooma-api.herokuapp.com/boxnovel/novels/${chapterlink}`,
                     "rating": realeasedate,
                 });
             });
@@ -267,6 +267,7 @@ async function ScrapeChapter(title, chapter, callback) {
                 .find('.nav-next')
                 .find('a')
                 .attr('href');
+                
             const _chapterPrev = (chapterPrev != null) ? chapterPrev.substr(chapterPrev.indexOf("chapter"), chapterPrev.length) : null;
 
             const chapterNext = $('.nav-links')
