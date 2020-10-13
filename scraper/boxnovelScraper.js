@@ -267,13 +267,14 @@ async function ScrapeChapter(title, chapter, callback) {
                 .find('.nav-next')
                 .find('a')
                 .attr('href');
-            const _chapterPrev = chapterPrev.substr(chapterPrev.indexOf("chapter"), chapterPrev.length);
+            const _chapterPrev = (chapterPrev != null) ? chapterPrev.substr(chapterPrev.indexOf("chapter"), chapterPrev.length) : null;
 
             const chapterNext = $('.nav-links')
                 .find('.nav-previous')
                 .find('a')
                 .attr('href');
-            const _chapterNext = chapterNext.substr(chapterNext.indexOf("chapter"), chapterNext.length);
+
+            const _chapterNext = (chapterNext != null) ? chapterNext.substr(chapterNext.indexOf("chapter"), chapterNext.length) : null;
 
             novelArray.nextChapter = (chapterPrev != null) ?
                 `https://kooma-api.herokuapp.com/boxnovel/novels/${title}/${_chapterPrev}` : null;

@@ -9,4 +9,4 @@ GET http://localhost:3000/boxnovel/novels?title=worlds greatest militia
 
 ###
 
-GET http://localhost:3000/boxnovel/novels/worlds-greatest-militia/chapter-3
+GET http://localhost:3000/boxnovel/novels/the-most-loving-marriage-in-history-master-mus-pampered-wife/chapter-1421
