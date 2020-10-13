@@ -81,7 +81,7 @@ Request for more website.
  }
 ```
 
-- **GET: /novels?title=[title]**
+- **GET: /novels/:title/:chapter**
 ```
 {
   "status": "Sucess",
