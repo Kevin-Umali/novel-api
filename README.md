@@ -55,7 +55,7 @@ Request for more website.
  }
 ```
 
-- **GET: /novels?title=[title]**
+- **GET: /boxnovel/novels?title=[title]**
 ```
 {
   "status": "Success",
@@ -81,7 +81,7 @@ Request for more website.
  }
 ```
 
-- **GET: /novels/:title/:chapter**
+- **GET: /boxnovel/novels/:title/:chapter**
 ```
 {
   "status": "Sucess",
