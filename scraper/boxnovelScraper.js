@@ -42,10 +42,10 @@ async function Scrape(page, callback) {
                     .replace('NEW', '')
                     .replace('HOT', '');
 
-                const link = $(el)
+                const link = `https://kooma-api.herokuapp.com/boxnovel/novels?title=${$(el)
                     .find('h5')
                     .children('a')
-                    .attr('href');
+                    .attr('href').replace('https://boxnovel.com/novel/', '').replace('/', '')}`;
 
                 const rating = $(el)
                     .find('.post-total-rating')
@@ -123,10 +123,10 @@ async function ScrapeSearch(query, page, callback) {
                     .find('img')
                     .attr('src');
 
-                const link = $(el)
+                const link = `https://kooma-api.herokuapp.com/boxnovel/novels?title=${$(el)
                     .find('h4')
                     .children('a')
-                    .attr('href');
+                    .attr('href').replace('https://boxnovel.com/novel/', '').replace('/', '')}`;
 
                 const rating = $(el)
                     .find('.post-total-rating')
@@ -237,10 +237,9 @@ async function ScrapeNovelDetails(title, callback) {
                     .find('.chapter-release-date')
                     .text()
                     .replace(/\s\s+/g, '');
-
                 novelArray.chapter.push({
                     "title": chaptername,
-                    "link": chapterlink,
+                    "link": `https://kooma-api.herokuapp.com/boxnovel/novels/${chapterlink.replace('https://boxnovel.com/novel/', '')}`,
                     "rating": realeasedate,
                 });
             });
@@ -268,13 +267,13 @@ async function ScrapeChapter(title, chapter, callback) {
                 .find('.nav-next')
                 .find('a')
                 .attr('href');
-            const _chapterPrev = chapterPrev.substr(chapterPrev.indexOf("chapter"), chapterPrev.length)
+            const _chapterPrev = chapterPrev.substr(chapterPrev.indexOf("chapter"), chapterPrev.length);
 
             const chapterNext = $('.nav-links')
                 .find('.nav-previous')
                 .find('a')
                 .attr('href');
-            const _chapterNext = chapterNext.substr(chapterNext.indexOf("chapter"), chapterNext.length)
+            const _chapterNext = chapterNext.substr(chapterNext.indexOf("chapter"), chapterNext.length);
 
             novelArray.nextChapter = (chapterPrev != null) ?
                 `https://kooma-api.herokuapp.com/boxnovel/novels/${title}/${_chapterPrev}` : null;
