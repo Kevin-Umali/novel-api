@@ -1,8 +1,12 @@
-GET http://localhost:3000/boxnovel?page=1
+GET http://localhost:3000/boxnovel?page=2
 
 ### 
-GET http://localhost:3000/boxnovel/search?search=demons
+GET http://localhost:3000/boxnovel/search?s=demons&page=1
 
 ###
 
-GET http://localhost:3000/boxnovel/novels?title=worlds-greatest-militia
+GET http://localhost:3000/boxnovel/novels?title=worlds greatest militia
+
+###
+
+GET http://localhost:3000/boxnovel/novels/worlds-greatest-militia/chapter-3

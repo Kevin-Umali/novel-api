@@ -7,7 +7,6 @@ const boxnovelRoute = require('./routes/boxnovelRoute');
 
 app.use('/boxnovel', boxnovelRoute);
 
-
 app.listen(process.env.PORT || port, () => {
-    console.log(`Example app listening at ${port}`)
+    console.log(`app listening at ${port}`)
 })
