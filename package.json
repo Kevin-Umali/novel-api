@@ -34,6 +34,8 @@
     "fastify": "^4.25.1",
     "fastify-plugin": "^4.5.1",
     "puppeteer": "^21.6.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {

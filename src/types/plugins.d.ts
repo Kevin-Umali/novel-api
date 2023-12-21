@@ -7,7 +7,7 @@ import type { RateLimitOptions } from "@fastify/rate-limit";
 import type { SensibleOptions } from "@fastify/sensible";
 import type { FastifyCompressOptions } from "@fastify/compress";
 
-interface CustomPluginOptions {
+export interface CustomPluginOptions {
   puppeteer?: PuppeteerLaunchOptions;
   cors?: FastifyCorsOptions;
   env?: FastifyEnvOptions;

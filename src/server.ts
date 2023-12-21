@@ -12,7 +12,29 @@ const server = Fastify({
   logger: !isProduction,
 });
 
-void server.register(app);
+void server.register(app, {
+  etag: { weak: false },
+  puppeteer: { headless: false },
+  cors: { origin: "*" },
+  rateLimit: {
+    max: 100,
+    timeWindow: "1 minute",
+  },
+  env: {
+    confKey: "config",
+    schema: {
+      type: "object",
+      required: ["PORT"],
+      properties: {
+        PORT: {
+          type: "string",
+          default: 3000,
+        },
+      },
+    },
+    dotenv: true,
+  },
+});
 
 const closeListeners = closeWithGrace({ delay: 500 }, async (opts: any) => {
   if (opts.err) {
