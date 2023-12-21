@@ -1,18 +1,24 @@
 # Welcome to Novel API
+
 ![Node](https://img.shields.io/badge/Node-v12.18.0-blue?style=for-the-badge)
 ![Express](https://img.shields.io/badge/Express--blue?style=for-the-badge)
 ![Cheerio](https://img.shields.io/badge/Cheerio--blue?style=for-the-badge)
+
 - An open REST API for light, wuxia and web novel related.
-> **REST API Link: ![REST API](https://kooma-api.herokuapp.com/boxnovel?page=1)**
+  > **REST API Link: ![REST API](https://kooma-api.herokuapp.com/boxnovel?page=1)**
+
 # Sources
+
 Request for more website.
-| Site                            | Can Search | Status |
+| Site | Can Search | Status |
 | --------------------------------| :--------: | :----: |
-| http://boxnovel.com             |     ✔     |    ✔   |
-| https://wuxiaworld.site/            |          |    ⌛   |
+| http://boxnovel.com | ✔ | ✔ |
+| https://wuxiaworld.site/ | | ⌛ |
 
 # Documentation
+
 - **GET: /boxnovel?page=[page]**
+
 ```
 {
   "status": "Sucess",
@@ -34,6 +40,7 @@ Request for more website.
 ```
 
 - **GET: /boxnovel/search?s=[s]&page=[page]**
+
 ```
 {
   "status": "Sucess",
@@ -56,6 +63,7 @@ Request for more website.
 ```
 
 - **GET: /boxnovel/novels?title=[title]**
+
 ```
 {
   "status": "Success",
@@ -82,6 +90,7 @@ Request for more website.
 ```
 
 - **GET: /boxnovel/novels/:title/:chapter**
+
 ```
 {
   "status": "Sucess",
