@@ -1,5 +1,5 @@
 # ----- Builder Stage -----
-FROM node:16-slim AS builder
+FROM node:20.9.0-slim AS builder
 
 WORKDIR /usr/src/app
 

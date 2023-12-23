@@ -22,6 +22,7 @@ const server = Fastify({
       target: "@fastify/one-line-logger",
     },
   },
+  pluginTimeout: 40000,
 });
 
 server.setValidatorCompiler(validatorCompiler);
@@ -102,7 +103,6 @@ void server.listen({
 });
 
 server.ready((err: Error | null) => {
-  console.log(process.env.NODE_ENV);
   if (err) {
     server.log.error(err);
     process.exit(1);
