@@ -1,0 +1,36 @@
+# Handle line endings automatically for files detected as text
+# and leave all files detected as binary untouched.
+* text=auto
+
+# Binary files - these should not be modified in any way.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# Force TypeScript and JavaScript to use LF
+*.ts eol=lf
+*.js eol=lf
+
+# Ensure JSON files (like package.json) use LF for consistency.
+*.json eol=lf
+
+# .env files can have sensitive information and are usually used for configuration.
+# Ensure they use LF for consistency.
+.env* eol=lf
+
+# If you have database migration or seed scripts, you might want to ensure LF endings.
+*.sql eol=lf
+
+# Shell scripts (if you have any utility scripts for the server)
+*.sh eol=lf
+
+# If you use YAML for configuration or Docker
+*.yml eol=lf
+*.yaml eol=lf
+
+# Markdown and other documentation files can use platform's default or can be forced to a specific line ending.
+*.md text
+*.txt text

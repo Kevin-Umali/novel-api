@@ -1,3 +1,42 @@
-node_modules
+# Node.js related
+node_modules/
+dist/
+package-lock.json
+
+# Build artifacts
+*.js
+*.js.map
+*.d.ts
+!@types/express/index.d.ts
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Environment variables
 .env
-dist
+.env.*
+!.env.example
+
+# Compiled TypeScript
+tsconfig.tsbuildinfo
+
+# Logs and debug files
+*.log
+debug.log
+
+# macOS related
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# Prisma
+!prisma/schema.prisma
+!prisma/seed.ts
+prisma/**
