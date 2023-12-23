@@ -17,7 +17,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const server = Fastify({
   logger: {
-    enabled: true,
+    enabled: !isProduction,
     transport: {
       target: "@fastify/one-line-logger",
     },
