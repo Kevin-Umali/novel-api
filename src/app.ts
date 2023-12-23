@@ -1,8 +1,8 @@
 import type { FastifyPluginAsync } from "fastify";
 import { join } from "path";
 
-import AutoLoad from "@fastify/autoload";
 import type { CustomPluginOptions } from "./types/plugins";
+import AutoLoad from "@fastify/autoload";
 
 const app: FastifyPluginAsync<CustomPluginOptions> = async (
   fastify,

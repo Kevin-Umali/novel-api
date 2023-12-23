@@ -3,18 +3,59 @@ import * as dotenv from "dotenv";
 import Fastify from "fastify";
 
 import app from "./app";
+import {
+  ZodTypeProvider,
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
+import { ZodError } from "zod";
+import { executablePath } from "puppeteer";
 
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const server = Fastify({
-  logger: !isProduction,
+  logger: {
+    enabled: true,
+    transport: {
+      target: "@fastify/one-line-logger",
+    },
+  },
+});
+
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
+server.withTypeProvider<ZodTypeProvider>();
+
+server.setErrorHandler((error, _request, reply) => {
+  if (error instanceof ZodError) {
+    reply.status(error.statusCode ?? 400).send({
+      statusCode: error.statusCode,
+      code: error.code,
+      error: "Bad Request",
+      message: error.issues || error.errors,
+    });
+  } else {
+    reply.internalServerError();
+  }
 });
 
 void server.register(app, {
   etag: { weak: false },
-  puppeteer: { headless: false },
+  puppeteer: !isProduction
+    ? { headless: false, executablePath: executablePath() }
+    : {
+        headless: true,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH!,
+        args: [
+          "--disable-setuid-sandbox",
+          "--no-sandbox",
+          "--single-process",
+          "--no-zygote",
+          "--disable-gpu",
+        ],
+      },
   cors: { origin: "*" },
   rateLimit: {
     max: 100,
@@ -34,12 +75,18 @@ void server.register(app, {
     },
     dotenv: true,
   },
+  caching: {
+    privacy: "public",
+    expiresIn: 86400, // 1 day in seconds
+  },
 });
 
 const closeListeners = closeWithGrace({ delay: 500 }, async (opts: any) => {
   if (opts.err) {
     server.log.error(opts.err);
   }
+
+  server.log.info("Closing server...");
 
   await server.close();
 });
@@ -51,10 +98,11 @@ server.addHook("onClose", (_instance, done) => {
 
 void server.listen({
   port: Number(process.env.PORT ?? 3000),
-  host: process.env.SERVER_HOSTNAME ?? "127.0.0.1",
+  host: !isProduction ? process.env.SERVER_HOSTNAME ?? "127.0.0.1" : "0.0.0.0",
 });
 
 server.ready((err: Error | null) => {
+  console.log(process.env.NODE_ENV);
   if (err) {
     server.log.error(err);
     process.exit(1);

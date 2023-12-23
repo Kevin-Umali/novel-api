@@ -6,6 +6,7 @@ import type { FastifyHelmetOptions } from "@fastify/helmet";
 import type { RateLimitOptions } from "@fastify/rate-limit";
 import type { SensibleOptions } from "@fastify/sensible";
 import type { FastifyCompressOptions } from "@fastify/compress";
+import type { FastifyCachingPluginOptions } from "@fastify/caching";
 
 export interface CustomPluginOptions {
   puppeteer?: PuppeteerLaunchOptions;
@@ -16,5 +17,7 @@ export interface CustomPluginOptions {
   rateLimit?: RateLimitOptions;
   sensible?: SensibleOptions;
   compress?: FastifyCompressOptions;
+  caching?: FastifyCachingPluginOptions;
+  timeout?: { timer?: number };
   // Add other plugin options as needed
 }
