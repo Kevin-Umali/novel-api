@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["src/types", "node_modules/@types"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "lib": ["dom", "ES2022"],
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["src/**/*", "src/types/**/*.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}
