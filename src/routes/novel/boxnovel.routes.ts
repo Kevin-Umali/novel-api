@@ -1,22 +1,16 @@
-import type {
-  FastifyError,
-  FastifyPluginAsync,
-  FastifyReply,
-  FastifyRequest,
-} from "fastify";
+import type { FastifyPluginAsync, FastifyReply, FastifyRequest, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault } from "fastify";
+import { getNovelChapter, getNovelDetails, getNovelList, searchNovel } from "../../controller/boxnovel.controller";
 import {
-  getNovelChapter,
-  getNovelDetails,
-  getNovelList,
-  searchNovel,
-} from "../../controller/boxnovel.controller";
-import {
-  NovelQuery,
+  BoxnovelRouteInterface,
+  BaseNovelSchema,
   NovelQuerySchema,
   NovelQueryWithRequiredLink,
   NovelQueryWithRequiredLinkSchema,
   NovelQueryWithRequiredSearch,
   NovelQueryWithRequiredSearchSchema,
+  NovelDetailsResponseSchema,
+  NovelChapterResponse,
+  BaseNovelResponse,
 } from "../../schema/boxnovel.schema";
 
 const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
@@ -25,48 +19,72 @@ const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
     {
       schema: {
         querystring: NovelQuerySchema,
+        response: {
+          200: BaseNovelSchema,
+        },
       },
     },
-    (
-      request: FastifyRequest<{ Querystring: NovelQuery }>,
-      reply: FastifyReply
-    ) => getNovelList(fastify, request, reply)
+    async (
+      request: FastifyRequest<{
+        Querystring: NovelQueryWithRequiredSearch;
+        Reply: BaseNovelResponse;
+      }>,
+      reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
+    ) => getNovelList(fastify, request, reply),
   );
   fastify.get(
     "/boxnovel/details",
     {
       schema: {
         querystring: NovelQueryWithRequiredLinkSchema,
+        response: {
+          200: NovelDetailsResponseSchema,
+        },
       },
     },
     (
-      request: FastifyRequest<{ Querystring: NovelQueryWithRequiredLink }>,
-      reply: FastifyReply
-    ) => getNovelDetails(fastify, request, reply)
+      request: FastifyRequest<{
+        Querystring: NovelQueryWithRequiredLink;
+        Reply: NovelChapterResponse;
+      }>,
+      reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
+    ) => getNovelDetails(fastify, request, reply),
   );
   fastify.get(
     "/boxnovel/chapter",
     {
       schema: {
         querystring: NovelQueryWithRequiredLinkSchema,
+        response: {
+          200: NovelDetailsResponseSchema,
+        },
       },
     },
     (
-      request: FastifyRequest<{ Querystring: NovelQueryWithRequiredLink }>,
-      reply: FastifyReply
-    ) => getNovelChapter(fastify, request, reply)
+      request: FastifyRequest<{
+        Querystring: NovelQueryWithRequiredLink;
+        Reply: NovelChapterResponse;
+      }>,
+      reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
+    ) => getNovelChapter(fastify, request, reply),
   );
   fastify.get(
     "/boxnovel/search",
     {
       schema: {
         querystring: NovelQueryWithRequiredSearchSchema,
+        response: {
+          200: BaseNovelSchema,
+        },
       },
     },
     (
-      request: FastifyRequest<{ Querystring: NovelQueryWithRequiredSearch }>,
-      reply: FastifyReply
-    ) => searchNovel(fastify, request, reply)
+      request: FastifyRequest<{
+        Querystring: NovelQueryWithRequiredSearch;
+        Reply: BaseNovelResponse;
+      }>,
+      reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
+    ) => searchNovel(fastify, request, reply),
   );
 };
 

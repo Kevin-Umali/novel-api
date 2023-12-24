@@ -1,0 +1,30 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["import", "unused-imports"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "import/no-unused-modules": "error",
+    "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_", "caughtErrorsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": ["error", { "allow": ["warn", "error", "info", "debug"] }]
+  },
+  "overrides": [
+    {
+      "files": ["src/index.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}

@@ -3,11 +3,7 @@ import * as dotenv from "dotenv";
 import Fastify from "fastify";
 
 import app from "./app";
-import {
-  ZodTypeProvider,
-  serializerCompiler,
-  validatorCompiler,
-} from "fastify-type-provider-zod";
+import { ZodTypeProvider, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import { executablePath } from "puppeteer";
 
@@ -17,7 +13,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const server = Fastify({
   logger: {
-    enabled: !isProduction,
+    enabled: process.env.LOGGER_ENABLED === "true" || false,
     transport: {
       target: "@fastify/one-line-logger",
     },
@@ -49,13 +45,7 @@ void server.register(app, {
     : {
         headless: true,
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH!,
-        args: [
-          "--disable-setuid-sandbox",
-          "--no-sandbox",
-          "--single-process",
-          "--no-zygote",
-          "--disable-gpu",
-        ],
+        args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote", "--disable-gpu"],
       },
   cors: { origin: "*" },
   rateLimit: {
@@ -103,20 +93,17 @@ void server.listen({
 });
 
 server.ready((err: Error | null) => {
+  console.info(process.env);
   if (err) {
     server.log.error(err);
     process.exit(1);
   }
 
-  server.log.info(
-    "All routes loaded! Check your console for the route details."
-  );
+  server.log.info("All routes loaded! Check your console for the route details.");
 
-  console.log(server.printRoutes());
+  console.info(server.printRoutes());
 
-  server.log.info(
-    `Server listening on port ${Number(process.env.PORT ?? 3000)}`
-  );
+  server.log.info(`Server listening on port ${Number(process.env.PORT ?? 3000)}`);
 });
 
 export { server as app };
