@@ -21,6 +21,16 @@ export default fp<CustomPluginOptions>(async (fastify, opts) => {
       page.setDefaultNavigationTimeout(opts.timeout?.timer ?? 30000);
       page.setDefaultTimeout(opts.timeout?.timer ?? 10000);
       await page.setViewport({ width: 1080, height: 1024 });
+
+      await page.setRequestInterception(true);
+      page.on("request", (req) => {
+        if (["image", "stylesheet", "font"].includes(req.resourceType())) {
+          req.abort();
+        } else {
+          req.continue();
+        }
+      });
+
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
       fastify.log.info("Navigating to " + url);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));

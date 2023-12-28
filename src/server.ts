@@ -45,7 +45,7 @@ void server.register(app, {
     : {
         headless: true,
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH!,
-        args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote", "--disable-gpu"],
+        args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote", "--disable-gpu", "--disable-web-security"],
       },
   cors: { origin: "*" },
   rateLimit: {
