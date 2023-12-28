@@ -1,9 +1,12 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault } from "fastify";
-import { BoxnovelRouteInterface, NovelChapterResponse, NovelQueryWithRequiredLink } from "../schema/boxnovel.schema";
+import { BaseNovelResponse, BoxnovelRouteInterface, NovelChapterResponse, NovelQueryWithRequiredLink, NovelQueryWithRequiredSearch } from "../schema/boxnovel.schema";
 
 async function getNovelList(
   fastify: FastifyInstance,
-  request: FastifyRequest<BoxnovelRouteInterface>,
+  request: FastifyRequest<{
+    Querystring: NovelQueryWithRequiredSearch;
+    Reply: BaseNovelResponse;
+  }>,
   reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
 ) {
   try {
@@ -71,6 +74,7 @@ async function getNovelList(
       page,
     });
   } catch (error) {
+    fastify.log.info(error);
     fastify.log.error(error);
     reply.internalServerError();
   }
@@ -182,7 +186,7 @@ async function getNovelChapter(
 
 async function searchNovel(
   fastify: FastifyInstance,
-  request: FastifyRequest<BoxnovelRouteInterface>,
+  request: FastifyRequest<{ Querystring: NovelQueryWithRequiredSearch; Reply: BaseNovelResponse }>,
   reply: FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, BoxnovelRouteInterface>,
 ) {
   try {

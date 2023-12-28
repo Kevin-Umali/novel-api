@@ -1,17 +1,12 @@
-import { FastifyReply, RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression } from "fastify";
-import { RouteGenericInterface } from "fastify/types/route";
-
 import { z } from "zod";
 
 export const NovelQuerySchema = z.object({
   orderBy: z.enum(["latest", "alphabet", "rating", "trending", "views", "new-manga"]).optional().default("latest"),
   page: z.string().optional().default("1"),
-  title: z.string().optional(),
-  link: z.string().optional(),
 });
 
-export const NovelQueryWithRequiredLinkSchema = NovelQuerySchema.extend({
-  link: z.string(),
+export const NovelQueryWithRequiredLinkSchema = z.object({
+  link: z.string().url(),
 });
 
 export const NovelQueryWithRequiredSearchSchema = NovelQuerySchema.extend({
@@ -22,7 +17,7 @@ export type NovelQuery = z.infer<typeof NovelQuerySchema>;
 export type NovelQueryWithRequiredLink = z.infer<typeof NovelQueryWithRequiredLinkSchema>;
 export type NovelQueryWithRequiredSearch = z.infer<typeof NovelQueryWithRequiredSearchSchema>;
 
-const NovelListResponseSchema = z.object({
+export const NovelListResponseSchema = z.object({
   title: z.string(),
   link: z.string(),
   imgSrc: z.string().url().nullable().optional().default(null),
@@ -31,7 +26,7 @@ const NovelListResponseSchema = z.object({
   updatedTime: z.string().nullable().optional().default(null),
 });
 
-export const BaseNovelSchema = z.object({
+export const BaseNovelResponseSchema = z.object({
   title: z.string().nullable().optional().default(null),
   novels: z.array(NovelListResponseSchema).default([]),
   total: z.string().nullable().optional().default(null),
@@ -67,7 +62,7 @@ export const NovelChapterResponseSchema = z.object({
   content: z.string().nullable().default(null),
 });
 
-export type BaseNovelResponse = z.infer<typeof BaseNovelSchema>;
+export type BaseNovelResponse = z.infer<typeof BaseNovelResponseSchema>;
 export type NovelChapterResponse = z.infer<typeof NovelChapterResponseSchema>;
 export type NovelDetailsResponse = z.infer<typeof NovelDetailsResponseSchema>;
 
@@ -75,5 +70,3 @@ export interface BoxnovelRouteInterface {
   Querystring: NovelQuery | NovelQueryWithRequiredLink | NovelQueryWithRequiredSearch;
   Reply: BaseNovelResponse | NovelChapterResponse | NovelDetailsResponse;
 }
-
-export interface FastifyReplyWithPayload<Payload extends RouteGenericInterface> extends FastifyReply<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, Payload> {}

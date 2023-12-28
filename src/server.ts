@@ -93,7 +93,6 @@ void server.listen({
 });
 
 server.ready((err: Error | null) => {
-  console.info(process.env);
   if (err) {
     server.log.error(err);
     process.exit(1);
