@@ -1,4 +1,4 @@
-name: Snyk Security Scan
+name: Full Snyk Analysis
 
 on:
   push:
@@ -8,41 +8,62 @@ on:
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
-  snyk:
+  security:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Set up Node.js environment (adjust version as necessary)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # Caching npm modules
+      - name: Cache node modules
+        uses: actions/cache@v2
         with:
-          node-version: '16'
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # Install dependencies
-      - name: Install dependencies
+      - name: Install npm dependencies
         run: npm install
 
-      # Snyk Code and Package Scanning
-      - name: Run Snyk to check for vulnerabilities
+      # Snyk Code Test and SARIF output
+      - name: Snyk Code Test
+        id: snyk_code
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=low --sarif-file-output=snyk-code-results.sarif
+
+      # Snyk Open Source monitor
+      - name: Snyk Open Source Monitor
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          command: monitor
 
-      # Docker build
+      # Build Docker image for Snyk Container scanning
       - name: Build Docker image
-        run: docker build -t your-image-name .
+        run: docker build -t novel-scraper/image .
 
-      # Snyk Docker Scanning
-      - name: Snyk Container monitor
-        run: snyk container monitor your-image-name --file=Dockerfile
+      # Snyk Container monitor
+      - name: Snyk Container Monitor
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: novel-scraper/image
+          file: Dockerfile
 
-      # Upload results to GitHub Code Scanning
-      - name: Upload Snyk scan results to GitHub Code Scanning
+      # Upload Snyk Code results to GitHub Code Scanning
+      - name: Upload Snyk Code Results to GitHub Code Scanning
+        if: always() && steps.snyk_code.outcome == 'success'
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-code-results.sarif
