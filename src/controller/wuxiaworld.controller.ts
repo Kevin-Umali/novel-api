@@ -14,7 +14,7 @@ async function getNovelList(
 
     fastify.log.info(`Fetching novel list for order: ${orderBy} and page: ${page}`);
 
-    const url = page === "1" ? `https://boxnovel.com/novel/?m_orderby=${orderBy}` : `https://boxnovel.com/novel/page/${page}/?m_orderby=${orderBy}`;
+    const url = page === "1" ? `https://wuxiaworld.site/novels-list/?m_orderby=${orderBy}` : `https://wuxiaworld.site/novels-list/page/${page}/?m_orderby=${orderBy}`;
 
     const puppeteerPage = await fastify.puppeteer.getPage(url);
 
@@ -30,14 +30,14 @@ async function getNovelList(
       const items = Array.from(document.querySelectorAll(".page-listing-item"));
 
       const itemResult = items.flatMap((item) => {
-        const novelsInItem = Array.from(item.querySelectorAll(".col-12.col-md-6.badge-pos-1"));
+        const novelsInItem = Array.from(item.querySelectorAll(".col-12.col-md-6.badge-pos-2"));
         return novelsInItem.map((novel) => {
           const titleElement = novel.querySelector(".post-title h3 a") as Element;
           const title = titleElement.textContent as string;
           const link = titleElement.getAttribute("href") as string;
 
           const imgElement = novel.querySelector("a img");
-          const imgSrc = imgElement ? imgElement.getAttribute("src") : null;
+          const imgSrc = imgElement ? imgElement.getAttribute("data-src") ?? imgElement.getAttribute("src") : null;
 
           const rating = novel.querySelector(".post-total-rating .total_votes")?.textContent?.trim() ?? null;
 
@@ -196,7 +196,8 @@ async function searchNovel(
 
     fastify.log.info(`Fetching novel list for search: ${title}, order: ${orderBy} and page: ${page}`);
 
-    const url = page === "1" ? `https://boxnovel.com/?s=${title}&post_type=wp-manga&m_orderby=${orderBy}` : `https://boxnovel.com/page/${page}/?s=${title}&post_type=wp-manga&m_orderby=${orderBy}`;
+    const url =
+      page === "1" ? `https://wuxiaworld.site/?s=${title}&post_type=wp-manga&m_orderby=${orderBy}` : `https://wuxiaworld.site/page/${page}/?s=${title}&post_type=wp-manga&m_orderby=${orderBy}`;
 
     const puppeteerPage = await fastify.puppeteer.getPage(url);
 
@@ -216,7 +217,7 @@ async function searchNovel(
         const title = titleElement.textContent as string;
         const link = titleElement.getAttribute("href") as string;
 
-        const imgSrc = row.querySelector(".tab-thumb img")?.getAttribute("src") ?? null;
+        const imgSrc = row.querySelector(".tab-thumb img")?.getAttribute("data-src") ?? row.querySelector(".tab-thumb img")?.getAttribute("src") ?? null;
 
         const rating = row.querySelector(".post-total-rating .total_votes")?.textContent ?? null;
 

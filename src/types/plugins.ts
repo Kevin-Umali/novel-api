@@ -5,7 +5,6 @@ import type { FastifyEtagOptions } from "@fastify/etag";
 import type { FastifyHelmetOptions } from "@fastify/helmet";
 import type { RateLimitOptions } from "@fastify/rate-limit";
 import type { SensibleOptions } from "@fastify/sensible";
-import type { FastifyCompressOptions } from "@fastify/compress";
 import type { FastifyCachingPluginOptions } from "@fastify/caching";
 
 export interface CustomPluginOptions {
@@ -16,7 +15,6 @@ export interface CustomPluginOptions {
   helmet?: FastifyHelmetOptions;
   rateLimit?: RateLimitOptions;
   sensible?: SensibleOptions;
-  compress?: FastifyCompressOptions;
   caching?: FastifyCachingPluginOptions;
   timeout?: { timer?: number };
   // Add other plugin options as needed

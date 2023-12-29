@@ -4,7 +4,7 @@ declare module "fastify" {
   interface FastifyInstance {
     puppeteer: {
       browser: Browser;
-      getPage: (url: string) => Promise<Page>;
+      getPage: (url: string, selector?: string) => Promise<Page>;
     };
   }
 }

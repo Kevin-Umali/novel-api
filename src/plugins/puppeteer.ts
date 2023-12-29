@@ -33,8 +33,6 @@ export default fp<CustomPluginOptions>(async (fastify, opts) => {
 
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
       fastify.log.info("Navigating to " + url);
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      fastify.log.info("Running scripts on the page");
       return page;
     },
   });

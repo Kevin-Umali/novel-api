@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync, FastifyReply, FastifyRequest, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault } from "fastify";
-import { getNovelChapter, getNovelDetails, getNovelList, searchNovel } from "../../controller/boxnovel.controller";
+import { getNovelChapter, getNovelDetails, getNovelList, searchNovel } from "../../controller/wuxiaworld.controller";
 import {
   NovelQueryWithRequiredLink,
   NovelQueryWithRequiredSearch,
@@ -14,12 +14,12 @@ import {
   BaseNovelResponseSchema,
 } from "../../schema/novel.schema";
 
-const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
+const wuxiaworld: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
   fastify.get(
-    "/boxnovel",
+    "/wuxiaworld",
     {
       schema: {
-        tags: ["boxnovel"],
+        tags: ["wuxiaworld"],
         summary: "List all novels",
         description: "This endpoint lists all novels, providing basic information like title, link, and image for each novel.",
         querystring: NovelQuerySchema,
@@ -37,10 +37,10 @@ const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
     ) => getNovelList(fastify, request, reply),
   );
   fastify.get(
-    "/boxnovel/details",
+    "/wuxiaworld/details",
     {
       schema: {
-        tags: ["boxnovel"],
+        tags: ["wuxiaworld"],
         summary: "Fetch details of a specific novel",
         description: "This endpoint provides detailed information about a novel including chapters and ratings based on the provided novel link.",
         querystring: NovelQueryWithRequiredLinkSchema,
@@ -58,10 +58,10 @@ const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
     ) => getNovelDetails(fastify, request, reply),
   );
   fastify.get(
-    "/boxnovel/chapter",
+    "/wuxiaworld/chapter",
     {
       schema: {
-        tags: ["boxnovel"],
+        tags: ["wuxiaworld"],
         summary: "Retrieve a specific novel chapter",
         description: "This endpoint fetches the content of a specific chapter of a novel, identified by the provided novel link.",
         querystring: NovelQueryWithRequiredLinkSchema,
@@ -79,10 +79,10 @@ const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
     ) => getNovelChapter(fastify, request, reply),
   );
   fastify.get(
-    "/boxnovel/search",
+    "/wuxiaworld/search",
     {
       schema: {
-        tags: ["boxnovel"],
+        tags: ["wuxiaworld"],
         summary: "Search for novels",
         description: "This endpoint allows users to search for novels by title, returning a list of novels that match the search criteria.",
         querystring: NovelQueryWithRequiredSearchSchema,
@@ -101,4 +101,4 @@ const boxnovel: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
   );
 };
 
-export default boxnovel;
+export default wuxiaworld;

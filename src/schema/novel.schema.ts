@@ -66,7 +66,7 @@ export type BaseNovelResponse = z.infer<typeof BaseNovelResponseSchema>;
 export type NovelChapterResponse = z.infer<typeof NovelChapterResponseSchema>;
 export type NovelDetailsResponse = z.infer<typeof NovelDetailsResponseSchema>;
 
-export interface BoxnovelRouteInterface {
+export interface NovelRouteInterface {
   Querystring: NovelQuery | NovelQueryWithRequiredLink | NovelQueryWithRequiredSearch;
   Reply: BaseNovelResponse | NovelChapterResponse | NovelDetailsResponse;
 }

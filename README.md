@@ -14,15 +14,17 @@
 - **Improved Data Validation with Zod**: Robust data validation and schema management to ensure data integrity.
 - **Optimized Performance**: Significant performance improvements for a smoother and faster user experience.
 
-
 ## Available Sources
 
 I will continuously expand this library time to time. Here are the current sources:
 
-| Site                     | Can Search | Status |
-| ------------------------ | :--------: | :----: |
-| http://boxnovel.com      |     ✔     |   ✔   |
-| https://wuxiaworld.site/ |            |   ⌛   |
+| Site                       | Can Search | Status |
+| -------------------------- | :--------: | :----: |
+| http://boxnovel.com/       |     ✔     |   ✔   |
+| https://wuxiaworld.site/   |     ✔     |   ✔   |
+| https://www.royalroad.com/ |            |   ⌛   |
+| https://novelfull.com/     |            |   ⌛   |
+| https://novelnext.com/     |            |   ⌛   |
 
 ## Using Version 1 (v1) of the API
 
@@ -33,4 +35,3 @@ Please note that while v1 is still available, it may not receive the same level 
 ## Contribute
 
 Found a bug or have a feature request? Feel free to open an issue or submit a pull request on our [GitHub repository](https://github.com/Kevin-Umali/novel-api/issues).
-
