@@ -20,7 +20,7 @@ jobs:
 
       # Caching npm modules
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -34,7 +34,6 @@ jobs:
       - name: Snyk Code Test
         id: snyk_code
         uses: snyk/actions/node@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -43,7 +42,6 @@ jobs:
       # Snyk Open Source monitor
       - name: Snyk Open Source Monitor
         uses: snyk/actions/node@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
