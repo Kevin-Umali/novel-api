@@ -64,7 +64,6 @@ jobs:
 
       # Upload Snyk Code results to GitHub Code Scanning
       - name: Upload Snyk Code Results to GitHub Code Scanning
-        if: always() && steps.snyk_code.outcome == 'success'
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk-code-results.sarif
