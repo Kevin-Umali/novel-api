@@ -37,7 +37,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=low --sarif-file-output=snyk-code-results.sarif
+          args: --sarif-file-output=snyk-code-results.sarif
 
       # Snyk Open Source monitor
       - name: Snyk Open Source Monitor
