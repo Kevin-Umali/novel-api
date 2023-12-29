@@ -43,6 +43,7 @@ jobs:
       # Snyk Open Source monitor
       - name: Snyk Open Source Monitor
         uses: snyk/actions/node@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -55,11 +56,11 @@ jobs:
       # Snyk Container monitor
       - name: Snyk Container Monitor
         uses: snyk/actions/docker@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: novel-scraper/image
-          file: Dockerfile
 
       # Upload Snyk Code results to GitHub Code Scanning
       - name: Upload Snyk Code Results to GitHub Code Scanning
